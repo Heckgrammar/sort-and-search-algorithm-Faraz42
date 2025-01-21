@@ -35,10 +35,10 @@ namespace compare_algorithm
         static void menu(int[] array)
         {
             Console.WriteLine("using your array, would you like to");
-            Console.WriteLine("1) linear search");
-            Console.WriteLine("2) binary search");
-            Console.WriteLine("3) bubble sort");
-            Console.WriteLine("4) merge sort");
+            Console.WriteLine("1) linear search"); // done
+            Console.WriteLine("2) binary search"); //
+            Console.WriteLine("3) bubble sort"); // done
+            Console.WriteLine("4) merge sort"); // done (?)
             Console.WriteLine("5) quit");
             int UserAnswer = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine(UserAnswer);
@@ -52,23 +52,49 @@ namespace compare_algorithm
             {
                 Console.WriteLine("and what number would you like to find");
                 int NumToFind = Convert.ToInt32(Console.ReadLine());
+               
                 BinarySearch(array, NumToFind);
             }
             else if (UserAnswer == 3)
             {
                 BubbleSort(array);
             }
-            else if (UserAnswer == 4) 
+            else if (UserAnswer == 4)
             {
-                MergeSortRecursive(array, array[0], array[1]);
+                MergeSortRecursive(array, 0, array.Length - 1);
+            }
+            else 
+            {
+                Console.WriteLine("sorry, that option is not valid");
             }
           
 
         }
 
-        static void BubbleSort(int[] a)
+        static int[] BubbleSort(int[] a)
         {
-            
+            bool swaps;
+            int temp;
+            do
+            {
+                swaps = false;
+                for (int j = 0; j <= a.Length - 2; j++)
+                {
+                    if (a[j] > a[j + 1]) 
+                    {
+                    temp = a[j];
+                        a[j] = a[j + 1];
+                        a[j + 1] = temp;
+                        swaps = true;
+                    }
+                }
+            } while (swaps);
+            Console.WriteLine($"sorted. Here is the algorithm: ");
+            for (int i = 0; i < a.Length; i++) 
+            {
+                Console.WriteLine(a[i]);
+            }
+            return a;
         }
         static void Merge(int[] a, int low, int mid, int high)
         {
@@ -113,7 +139,7 @@ namespace compare_algorithm
                 a[k] = R[j];
                 j++; k++;
             }
-        }
+         }
         static void MergeSortRecursive(int[] a, int low, int high)
         {
             if (low < high)
@@ -123,13 +149,45 @@ namespace compare_algorithm
                 MergeSortRecursive(a, mid + 1, high);
                 Merge(a, low, mid, high);
             }
+            
         }
         static bool LinearSearch(int[] a, int numToFind)
         {
+            bool found = false;
+            do
+            {
+                for (int i = 0; i < a.Length; i++)
+                {
+                    if (a[i] == numToFind)
+                    {
+                        found = true;
+                        Console.WriteLine($"is it in the {i + 1} position of the array");
+                        return true;
+                    }
+                    else if (i == a.Length - 1) 
+                    {
+                        Console.WriteLine($"sorry, {numToFind} is not in the array");
+                        break;
+                    }
+
+                }
+            } while (found == false);
+            
+
             return LinearSearch(a, numToFind);
         }
         static bool BinarySearch(int[] a, int numToFind)
         {
+           bool found = false;
+            int[] array = BubbleSort(a);
+            do
+            {
+                int midpoint = array.Length / 2 - 1;
+                if (midpoint < numToFind)
+                {
+
+                }
+            } while (found);
             return BinarySearch(a, numToFind);
         }
             
