@@ -52,7 +52,7 @@ namespace compare_algorithm
             {
                 Console.WriteLine("and what number would you like to find");
                 int NumToFind = Convert.ToInt32(Console.ReadLine());
-               
+
                 BinarySearch(array, NumToFind);
             }
             else if (UserAnswer == 3)
@@ -89,6 +89,7 @@ namespace compare_algorithm
                     }
                 }
             } while (swaps);
+           
             Console.WriteLine($"sorted. Here is the algorithm: ");
             for (int i = 0; i < a.Length; i++) 
             {
@@ -139,9 +140,11 @@ namespace compare_algorithm
                 a[k] = R[j];
                 j++; k++;
             }
+            
          }
         static void MergeSortRecursive(int[] a, int low, int high)
         {
+            
             if (low < high)
             {
                 int mid = (low + high) / 2;
@@ -161,7 +164,7 @@ namespace compare_algorithm
                     if (a[i] == numToFind)
                     {
                         found = true;
-                        Console.WriteLine($"is it in the {i + 1} position of the array");
+                        Console.WriteLine($"is it in the index {i} of the array");
                         return true;
                     }
                     else if (i == a.Length - 1) 
@@ -178,17 +181,60 @@ namespace compare_algorithm
         }
         static bool BinarySearch(int[] a, int numToFind)
         {
-           bool found = false;
-            int[] array = BubbleSort(a);
-            do
+            int lower = 0;
+            int upper = a.Length - 1,mid;
+            
+            while (lower < upper) 
             {
-                int midpoint = array.Length / 2 - 1;
-                if (midpoint < numToFind)
+            mid = (lower + upper) / 2;
+                if (a[mid] == numToFind)
                 {
-
+                    Console.WriteLine($"{numToFind} was found at the index {mid}");
+                    return true;
                 }
-            } while (found);
-            return BinarySearch(a, numToFind);
+                else if (a[mid] > numToFind)
+                {
+                    upper = mid - 1;
+                }
+                else 
+                {
+                    lower = mid + 1;
+                }
+            }
+            return false;
+            //return BinarySearch(a, numToFind);
+            //bool found = false;
+            // int[] array = BubbleSort(a);
+            // int UpperBound = array.Length - 1;
+            // int midpoint = array.Length / 2 - 1;
+            // int LowerBound = 0;
+
+
+            // do
+            // {
+            //     //Console.WriteLine("test");
+            //     if (midpoint == numToFind)
+            //     {
+            //         Console.WriteLine($"{numToFind} has been found, it is in the {a[midpoint]} position");
+            //         found = true;
+            //     }
+            //     else if (midpoint < numToFind)
+            //     {
+            //         LowerBound = midpoint;
+            //         midpoint = UpperBound + LowerBound / 2;
+            //     }
+            //     else if (midpoint > numToFind)
+            //     {
+            //         UpperBound = midpoint;
+            //         midpoint = (UpperBound + LowerBound) / 2;
+            //     }
+            //     else if (midpoint == LowerBound || midpoint == UpperBound || UpperBound == LowerBound) 
+            //     {
+            //         Console.WriteLine($"sorry, {numToFind} is not in the code");
+            //         found = true;
+            //     }
+            // } while (found);
+            
         }
             
     }
